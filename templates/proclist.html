@@ -1,0 +1,119 @@
+$def with (proclist, ostype)
+<html lang="en"> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>ProcAnalst Management Console</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 60px;
+            }
+        </style>
+        <link rel="stylesheet" href="static/css/bootstrap-responsive.min.css">
+        <!-- <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/font-awesome.css">
+        <link rel="stylesheet" href="css/font-awesome-ie7.min.css"> -->
+        <link rel="stylesheet" href="static/css/ie6.css">
+        <link rel="stylesheet" href="static/css/ie7.css">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <!-- This code is taken from
+        http://twitter.github.com/bootstrap/examples/hero.html --> <div
+        class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse"
+                    data-target=".navbar-inverse-collapse">
+                        <span class="icon-bar"></span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span>
+                    </a> <a class="brand" href="/">ProcAnalyst</a> <div
+                    class="nav-collapse collapse navbar-inverse-collapse">
+                        <ul class="nav">
+                            <li><a href="/">SysInfo</a></li>
+                            <li class="active"><a href="/proc">Process List</a></li>
+                        </ul>
+                    </div><!-- /.nav-collapse -->
+                </div>
+            </div><!-- /navbar-inner -->
+        </div> <div class="container-fluid">
+            <div class="row-fluid">
+                <div id="jobs" class="span12">
+                    <div id="info" class="alert alert-info">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Note!</strong> The contents reload every 5 minutes.
+                    </div>
+                    <div id="warn" class="alert alert-block">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Heads Up!</strong> The contents are reloading in 2.5 minutes.
+                    </div>
+                    <div>
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    $if ostype == 'nt':
+                                        <td>Process ID</td>
+                                        <td>Process Name</td>
+                                        <td>User</td>
+                                    $elif ostype == 'posix':
+                                        <td>Process ID</td>
+                                        <td>Process Name</td>
+                                        <td>User</td>
+                                        <td>Process Exe</td>
+                                        <td>Process Status</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                $if ostype == 'nt':
+                                        $for i in proclist:
+                                        <tr>
+                                            <td>
+                                            $i.pid
+                                            </td>
+                                            <td>
+                                            $i.name
+                                            </td>
+                                            <td>
+                                            $i.username
+                                            </td>
+                                        </tr>
+                                $elif ostype == 'posix':
+                                        $for i in proclist:
+                                        <tr>
+                                            <td>
+                                            $i.pid
+                                            </td>
+                                            <td>
+                                            $i.name
+                                            </td>
+                                            <td>
+                                            $i.username
+                                            </td>
+                                            <td>
+                                            $i.exe
+                                            </td>
+                                            <td>
+                                            $i.status
+                                            </td>
+                                        </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> <div id="footer">
+            <hr /> <div class="container">
+                <p class="muted credit"><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.</p>
+            </div>
+        </div>
+        <script src="static/js/jquery-1.8.2.min.js"></script> <script
+        src="static/js/bootstrap.min.js"></script>
+        <script src="static/js/index.js"></script>
+    </body>
+</html>
