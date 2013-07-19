@@ -1,4 +1,4 @@
-$def with (message)
+$def with (message, caseinfo, casename, casefiles)
 <html lang="en"> 
     <head>
         <meta charset="utf-8">
@@ -52,6 +52,74 @@ $def with (message)
                     <h1>Welcome to the Forensic Log Reporter</h1>
                     $if message != '':
                         <p>$message</p>
+                    $if caseinfo != '':
+                        <h3>Phone Information</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>Date Time</td>
+                                    <td>IMSI</td>
+                                    <td>IMEI</td>
+                                    <td>Phone Type</td>
+                                    <td>MSISDN</td>
+                                    <td>ICCID</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    $for case in caseinfo[0]:
+                                        <td>$case</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h3>Android Build Information</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Version Release</th>
+                                    <th>Version SDK</th>
+                                    <th>Version Incremental</th>
+                                    <th>Board</th>
+                                    <th>Brand</th>
+                                    <th>Device</th>
+                                    <th>Display</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    $for case in caseinfo[1][:7]:
+                                        <td>$case</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Fingerprint</th>
+                                    <th>Host</th>
+                                    <th>ID</th>
+                                    <th>Model</th>
+                                    <th>Product</th>
+                                    <th>Tags</th>
+                                    <th>Time</th>
+                                    <th>Build Type</th>
+                                    <th>User</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    $for case in caseinfo[1][7:]:
+                                        <td>$case</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h3>Case Files</h3>
+                        <p>
+                            <ul>
+                                $for case in casefiles:
+                                    <li><a href="$casename/$case">$case</a></li>
+                            </ul>
+                        </p>
                 </div>
             </div>
         </div> <div id="footer">
@@ -64,4 +132,3 @@ $def with (message)
         <script src="/static/js/index.js"></script>
     </body>
 </html>
-
