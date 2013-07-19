@@ -45,8 +45,11 @@ def calllog(path):
     calllogcsv = open(path)
     things = csv.reader(calllogcsv, delimiter=",", quotechar='"')
     column_names = things.next()
+    column_names = column_names[1:7]
     for line in things:
-        storage.append(line)
+        storage.append(line[1:7])
     for row in storage:
-        row[2] = epoch2datetime(int(row[2]))
+        if row[-1] == '':
+            row[-1] = 'Unknown'
+        row[1] = epoch2datetime(int(row[1]))
     return [column_names, storage]
