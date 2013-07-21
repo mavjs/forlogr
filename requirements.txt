@@ -1,0 +1,2 @@
+web.py==0.37
+beautifulsoup4==4.2.1
