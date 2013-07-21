@@ -11,6 +11,7 @@ from readinfo import (
         browsersearches,
         contacts,
         mmsattachments,
+        mms,
         )
 
 urls = (
@@ -24,7 +25,8 @@ urls = (
         '/cases/Contacts/([a-zA-Z0-9]+)', 'Contacts',
         '/cases/MMSAttachments/([a-zA-Z0-9]+)', 'MMSAttachments',
         '/cases/MMS/([a-zA-Z0-9]+)', 'MMS',
-        '/cases/SMS/([a-zA-Z0-9]+)', 'UserDictionary',
+        '/cases/SMS/([a-zA-Z0-9]+)', 'SMS',
+        '/cases/UserDictionary/([a-zA-Z0-9]+)', 'UserDictionary',
         )
 
 render = web.template.render('templates/')
@@ -97,6 +99,13 @@ class MMSAttachments(object):
         mmsattachcsv = os.path.join(casedir, name, 'MMS Attachments.csv')
         mmsattach = mmsattachments(mmsattachcsv)
         return render.mmsattachments(name, mmsattach)
+
+class MMS(object):
+    def GET(self, name):
+        casedir = os.path.join(os.getcwd(), 'cases')
+        mmscsv = os.path.join(casedir, name, 'MMS.csv')
+        mmsA = mms(mmscsv)
+        return render.mms(name, mmsA)
 
 
 class Cases(object):

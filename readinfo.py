@@ -8,6 +8,10 @@ def epoch2datetime(t):
     """Convert milliseconds from epoch to a local datetime object"""
     return datetime.fromtimestamp(t/1000.0)
 
+def epoch2local(t):
+    """Convert milliseconds from epoch to a local datetime object"""
+    return datetime.fromtimestamp(t)
+
 def infoxml(path):
     xmlfile = open(path).read()
     phoneinfo = []
@@ -113,4 +117,26 @@ def mmsattachments(path):
         if line[13] == '':
             line[13] = 'N/A'
         storage.append([line[3], line[4], line[7], line[8], line[9], line[12], line[13]])
+    return [column_names, storage]
+
+def mms(path):
+    storage = []
+    contactscsv = open(path)
+    things = csv.reader(contactscsv, delimiter=",", quotechar='"')
+    column_names = things.next()
+    column_names = [column_names[2], column_names[4], column_names[5], column_names[6], column_names[8], column_names[11], column_names[31]]
+    for line in things:
+        if not line[2] == '':
+            line[2] = epoch2local(int(line[2]))
+        elif not line[31] == '':
+            line[31] = epoch2local(int(line[31]))
+        if line[5] == '':
+            line[5] = 'N/A'
+        if line[6] == '':
+            line[6] = 'N/A'
+        if line[8] == '':
+            line[8] = 'N/A'
+        if line[11] == '':
+            line[11] = 'N/A'
+        storage.append([line[2], line[4], line[5], line[6], line[8], line[11], line[31]])
     return [column_names, storage]
