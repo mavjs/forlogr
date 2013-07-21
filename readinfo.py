@@ -5,14 +5,22 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 def epoch2datetime(t):
-    """Convert milliseconds from epoch to a local datetime object"""
+    """
+    Convert milliseconds from epoch to a local datetime object.
+    """
     return datetime.fromtimestamp(t/1000.0)
 
 def epoch2local(t):
-    """Convert milliseconds from epoch to a local datetime object"""
+    """
+    Convert seconds from epoch to a local datetime object.
+    """
     return datetime.fromtimestamp(t)
 
 def infoxml(path):
+    """
+    Get necessary data from info.xml for ShowCase view class.
+    Especially the IMEI and build info.
+    """
     xmlfile = open(path).read()
     phoneinfo = []
     buildinfo = []
@@ -41,10 +49,17 @@ def infoxml(path):
     typeand = build.find('type').text
     user = build.find('user').text
     phoneinfo = [tstp, imsi, imei, phonetype, msisdn, iccid]
-    buildinfo = [verrel, versdk, verinc, board, brand, device, display, fingerprint, host, ident, model, product, tags, timeb, typeand, user]
+    buildinfo = [verrel, versdk, verinc, board, brand, device, display,
+            fingerprint, host, ident, model, product, tags, timeb, typeand,
+            user]
     return [phoneinfo, buildinfo]
 
 def calllog(path):
+    """
+    Function to parse the Call Log.csv file and strip out unnecessary columns 
+    for clarity of report and convert epoch unix times from milliseconds or 
+    seconds to proper datetime formats.
+    """
     storage = []
     calllogcsv = open(path)
     things = csv.reader(calllogcsv, delimiter=",", quotechar='"')
@@ -59,6 +74,11 @@ def calllog(path):
     return [column_names, storage]
 
 def browserhistory(path):
+    """
+    Function to parse the Browser History.csv file and strip out unnecessary columns 
+    for clarity of report and convert epoch unix times from milliseconds or 
+    seconds to proper datetime formats.
+    """
     storage = []
     bhistorycsv = open(path)
     things = csv.reader(bhistorycsv, delimiter=",", quotechar='"')
@@ -74,6 +94,11 @@ def browserhistory(path):
     return [column_names, storage]
 
 def browsersearches(path):
+    """
+    Function to parse the Browser Searches.csv file and strip out unnecessary columns 
+    for clarity of report and convert epoch unix times from milliseconds or 
+    seconds to proper datetime formats.
+    """
     storage = []
     bsearchcsv = open(path)
     things = csv.reader(bsearchcsv, delimiter=",", quotechar='"')
@@ -86,6 +111,11 @@ def browsersearches(path):
     return [column_names, storage]
 
 def contacts(path):
+    """
+    Function to parse the Contacts.csv file and strip out unnecessary columns 
+    for clarity of report and convert epoch unix times from milliseconds or 
+    seconds to proper datetime formats.
+    """
     storage = []
     contactscsv = open(path)
     things = csv.reader(contactscsv, delimiter=",", quotechar='"')
@@ -96,6 +126,11 @@ def contacts(path):
     return [column_names, storage]
 
 def mmsattachments(path):
+    """
+    Function to parse the MMS Attachments.csv file and strip out unnecessary columns 
+    for clarity of report and convert epoch unix times from milliseconds or 
+    seconds to proper datetime formats.
+    """
     storage = []
     mmsattcsv = open(path)
     things = csv.reader(mmsattcsv, delimiter=",", quotechar='"')
@@ -120,6 +155,11 @@ def mmsattachments(path):
     return [column_names, storage]
 
 def mms(path):
+    """
+    Function to parse the MMS.csv file and strip out unnecessary columns 
+    for clarity of report and convert epoch unix times from milliseconds or 
+    seconds to proper datetime formats.
+    """
     storage = []
     contactscsv = open(path)
     things = csv.reader(contactscsv, delimiter=",", quotechar='"')
@@ -142,6 +182,11 @@ def mms(path):
     return [column_names, storage]
 
 def sms(path):
+    """
+    Function to parse the SMS.csv file and strip out unnecessary columns 
+    for clarity of report and convert epoch unix times from milliseconds or 
+    seconds to proper datetime formats.
+    """
     storage = []
     smsscsv = open(path)
     things = csv.reader(smsscsv, delimiter=",", quotechar='"')
@@ -153,6 +198,11 @@ def sms(path):
     return [column_names, storage]
 
 def userdict(path):
+    """
+    Function to parse the User Dictionary.csv file and strip out unnecessary columns 
+    for clarity of report and convert epoch unix times from milliseconds or 
+    seconds to proper datetime formats.
+    """
     storage = []
     userdictcsv = open(path)
     things = csv.reader(userdictcsv, delimiter=",", quotechar='"')
