@@ -10,6 +10,7 @@ from readinfo import (
         browserhistory,
         browsersearches,
         contacts,
+        mmsattachments,
         )
 
 urls = (
@@ -94,7 +95,7 @@ class MMSAttachments(object):
     def GET(self, name):
         casedir = os.path.join(os.getcwd(), 'cases')
         mmsattachcsv = os.path.join(casedir, name, 'MMS Attachments.csv')
-        mmsattach = contacts(mmsattachcsv)
+        mmsattach = mmsattachments(mmsattachcsv)
         return render.mmsattachments(name, mmsattach)
 
 

@@ -98,5 +98,19 @@ def mmsattachments(path):
     columns = things.next()
     column_names = [columns[3], columns[4], columns[7], columns[8], columns[9], columns[12], columns[13]]
     for line in things:
+        if line[3] == '':
+            line[3] = 'N/A'
+        if line[4] == '':
+            line[4] = 'N/A'
+        if line[7] == '':
+            line[7] = 'N/A'
+        if line[8] == '':
+            line[8] = 'N/A'
+        if line[9] == '':
+            line[9] = 'N/A'
+        if line[12] == '':
+            line[12] = 'N/A'
+        if line[13] == '':
+            line[13] = 'N/A'
         storage.append([line[3], line[4], line[7], line[8], line[9], line[12], line[13]])
     return [column_names, storage]
