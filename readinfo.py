@@ -53,3 +53,50 @@ def calllog(path):
             row[-1] = 'Unknown'
         row[1] = epoch2datetime(int(row[1]))
     return [column_names, storage]
+
+def browserhistory(path):
+    storage = []
+    bhistorycsv = open(path)
+    things = csv.reader(bhistorycsv, delimiter=",", quotechar='"')
+    column_names = things.next()
+    column_names = column_names[1:]
+    for line in things:
+        storage.append(line[1:])
+    for row in storage:
+        if row[0] == '':
+            row[0] = 'Bookmark'
+            continue
+        row[0] = epoch2datetime(int(row[0]))
+    return [column_names, storage]
+
+def browsersearches(path):
+    storage = []
+    bsearchcsv = open(path)
+    things = csv.reader(bsearchcsv, delimiter=",", quotechar='"')
+    column_names = things.next()
+    column_names = column_names[1:]
+    for line in things:
+        storage.append(line[1:])
+    for row in storage:
+        row[0] = epoch2datetime(int(row[0]))
+    return [column_names, storage]
+
+def contacts(path):
+    storage = []
+    contactscsv = open(path)
+    things = csv.reader(contactscsv, delimiter=",", quotechar='"')
+    column_names = things.next()
+    column_names = column_names[1:]
+    for line in things:
+        storage.append(line[1:])
+    return [column_names, storage]
+
+def mmsattachments(path):
+    storage = []
+    mmsattcsv = open(path)
+    things = csv.reader(mmsattcsv, delimiter=",", quotechar='"')
+    columns = things.next()
+    column_names = [columns[3], columns[4], columns[7], columns[8], columns[9], columns[12], columns[13]]
+    for line in things:
+        storage.append([line[3], line[4], line[7], line[8], line[9], line[12], line[13]])
+    return [column_names, storage]

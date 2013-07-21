@@ -1,0 +1,80 @@
+$def with (name, mmsattach)
+<html lang="en"> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Forensic Log Analyzer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 60px;
+                word-wrap: break-word;
+            }
+            table {
+                width: 99% !important;
+                word-wrap: break-word !important;
+            }
+        </style>
+        <link rel="stylesheet" href="/static/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="/static/css/ie6.css">
+        <link rel="stylesheet" href="/static/css/ie7.css">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <!-- This code is taken from
+        http://twitter.github.com/bootstrap/examples/hero.html --> <div
+        class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse"
+                    data-target=".navbar-inverse-collapse">
+                        <span class="icon-bar"></span> <span
+                        class="icon-bar"></span> <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="/">ForLogr</a> <div
+                    class="nav-collapse collapse navbar-inverse-collapse">
+                        <ul class="nav">
+                            <li class="active"><a href="/">Upload</a></li>
+                            <li><a href="/cases">Cases</a></li>
+                        </ul>
+                    </div><!-- /.nav-collapse -->
+                </div>
+            </div><!-- /navbar-inner -->
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div id="jobs" class="span12">
+                    <h1>Welcome to the Forensic Log Reporter</h1>
+                    <h3>MMS Attachments from case name: $name</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                $for column in mmsattach[0]:
+                                <th>$column</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            $for column in mmsattach[1]:
+                                <tr>
+                                    $for thing in column:
+                                        <td>$thing</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <div id="footer">
+            <hr /> <div class="container">
+                <p class="muted credit"><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.</p>
+            </div>
+        </div>
+        <script src="/static/js/jquery-1.8.2.min.js"></script> 
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/index.js"></script>
+    </body>
+</html>

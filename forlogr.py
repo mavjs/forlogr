@@ -2,13 +2,14 @@
 
 import os
 import web
-import csv
-from datetime import datetime
 from StringIO import StringIO
 import zipfile
 from readinfo import (
         infoxml,
         calllog,
+        browserhistory,
+        browsersearches,
+        contacts,
         )
 
 urls = (
@@ -16,18 +17,17 @@ urls = (
         '/favicon.ico', 'favicon',
         '/cases', 'Cases',
         '/cases/([a-zA-Z0-9]+)', 'ShowCase',
-        '/cases/Mateen/CallLog', 'CallLog',
-        '/cases/([a-zA-Z0-9]+)/BrowserSearches/', 'BrowserSearches',
-        '/cases/([a-zA-Z0-9]+)/CallLog/', 'CallLog',
-        '/cases/([a-zA-Z0-9]+)/Contacts/', 'Contacts',
-        '/cases/([a-zA-Z0-9]+)/Media/', 'Media',
-        '/cases/([a-zA-Z0-9]+)/MMSAttachments/', 'MMSAttachments',
-        '/cases/([a-zA-Z0-9]+)/MMS/', 'MMS',
-        '/cases/([a-zA-Z0-9]+)/SMS/', 'SMS',
-        '/cases/([a-zA-Z0-9]+)/UserDictionary/', 'UserDictionary',
+        '/cases/BrowserHistory/([a-zA-Z0-9]+)', 'BrowserHistory',
+        '/cases/BrowserSearches/([a-zA-Z0-9]+)', 'BrowserSearches',
+        '/cases/CallLog/([a-zA-Z0-9]+)', 'CallLog',
+        '/cases/Contacts/([a-zA-Z0-9]+)', 'Contacts',
+        '/cases/MMSAttachments/([a-zA-Z0-9]+)', 'MMSAttachments',
+        '/cases/MMS/([a-zA-Z0-9]+)', 'MMS',
+        '/cases/SMS/([a-zA-Z0-9]+)', 'UserDictionary',
         )
 
 render = web.template.render('templates/')
+
 
 class favicon(object):
     """
@@ -38,19 +38,11 @@ class favicon(object):
         raise web.redirect('static/favicon.ico')
 
 
-class CallLog(object):
-    def GET(self):
-        name = 'Mateen'
-        casedir = os.path.join(os.getcwd(), 'cases')
-        calllogs = os.path.join(casedir, name, 'Call Log.csv')
-        calls = calllog(calllogs)
-        return render.calllog(name, calls)
-
 class ShowCase(object):
     def GET(self, name):
         curdir = os.path.join(os.getcwd(), 'cases', name)
         casename = name
-        casefiles = ['BrowserHistory',  'BrowserSearches',  'CallLog',  'Contacts',  'Media',  'MMSAttachments',  'MMS',  'SMS',  'UserDictionary']
+        casefiles = ['BrowserHistory',  'BrowserSearches',  'CallLog',  'Contacts',  'MMSAttachments',  'MMS',  'SMS',  'UserDictionary']
         cases = []
         caseinfo = ''
         cases_dir = 'cases'
@@ -66,8 +58,47 @@ class ShowCase(object):
             return render.showcase(message, caseinfo, casename, casefiles)
 
 
-class Cases(object):
+class BrowserSearches(object):
+    def GET(self, name):
+        casedir = os.path.join(os.getcwd(), 'cases')
+        bsearches = os.path.join(casedir, name, 'Browser Searches.csv')
+        browser = browsersearches(bsearches)
+        return render.browsersearches(name, browser)
 
+
+class BrowserHistory(object):
+    def GET(self, name):
+        casedir = os.path.join(os.getcwd(), 'cases')
+        bhistory = os.path.join(casedir, name, 'Browser History.csv')
+        browser = browserhistory(bhistory)
+        return render.browserhistory(name, browser)
+
+
+class CallLog(object):
+    def GET(self, name):
+        casedir = os.path.join(os.getcwd(), 'cases')
+        calllogs = os.path.join(casedir, name, 'Call Log.csv')
+        calls = calllog(calllogs)
+        return render.calllog(name, calls)
+
+
+class Contacts(object):
+    def GET(self, name):
+        casedir = os.path.join(os.getcwd(), 'cases')
+        contactscsv = os.path.join(casedir, name, 'Contacts.csv')
+        contact = contacts(contactscsv)
+        return render.contacts(name, contact)
+
+
+class MMSAttachments(object):
+    def GET(self, name):
+        casedir = os.path.join(os.getcwd(), 'cases')
+        mmsattachcsv = os.path.join(casedir, name, 'MMS Attachments.csv')
+        mmsattach = contacts(mmsattachcsv)
+        return render.mmsattachments(name, mmsattach)
+
+
+class Cases(object):
     def GET(self):
         cases = []
         cases_dir = 'cases'
