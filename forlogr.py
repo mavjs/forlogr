@@ -71,7 +71,7 @@ class Index(object):
             fout = open(os.path.join(filepath, split_name), 'wb')
             fout.write(zip_list.read(item))
             fout.close()
-        return web.seeother('/cases')
+        return web.seeother('/cases/%s'  % (casename))
 
 
 class Cases(object):
