@@ -140,3 +140,24 @@ def mms(path):
             line[11] = 'N/A'
         storage.append([line[2], line[4], line[5], line[6], line[8], line[11], line[31]])
     return [column_names, storage]
+
+def sms(path):
+    storage = []
+    smsscsv = open(path)
+    things = csv.reader(smsscsv, delimiter=",", quotechar='"')
+    column_names = things.next()
+    column_names = [column_names[2], column_names[4], column_names[6], column_names[8], column_names[11]]
+    for line in things:
+        line[4] = epoch2datetime(int(line[4]))
+        storage.append([line[2], line[4], line[6], line[8], line[11]])
+    return [column_names, storage]
+
+def userdict(path):
+    storage = []
+    userdictcsv = open(path)
+    things = csv.reader(userdictcsv, delimiter=",", quotechar='"')
+    column_names = things.next()
+    column_names = column_names[1:]
+    for line in things:
+        storage.append(line[1:])
+    return [column_names, storage]

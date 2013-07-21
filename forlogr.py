@@ -12,6 +12,8 @@ from readinfo import (
         contacts,
         mmsattachments,
         mms,
+        sms,
+        userdict,
         )
 
 urls = (
@@ -100,12 +102,29 @@ class MMSAttachments(object):
         mmsattach = mmsattachments(mmsattachcsv)
         return render.mmsattachments(name, mmsattach)
 
+
 class MMS(object):
     def GET(self, name):
         casedir = os.path.join(os.getcwd(), 'cases')
         mmscsv = os.path.join(casedir, name, 'MMS.csv')
         mmsA = mms(mmscsv)
         return render.mms(name, mmsA)
+
+
+class SMS(object):
+    def GET(self, name):
+        casedir = os.path.join(os.getcwd(), 'cases')
+        smscsv = os.path.join(casedir, name, 'SMS.csv')
+        smsA = sms(smscsv)
+        return render.sms(name, smsA)
+
+
+class UserDictionary(object):
+    def GET(self, name):
+        casedir = os.path.join(os.getcwd(), 'cases')
+        userdictcsv = os.path.join(casedir, name, 'User Dictionary.csv')
+        userdic = userdict(userdictcsv)
+        return render.userdictionary(name, userdic)
 
 
 class Cases(object):
